@@ -7,7 +7,7 @@
 import Model
 import Network
 
-protocol GitHubRepositoryRepository {
+public protocol GitHubRepositoryRepository {
 
     /// 指定された検索語でGitHubのリポジトリを検索する
     ///
@@ -19,9 +19,11 @@ protocol GitHubRepositoryRepository {
 }
 
 
-final class GitHubRepositoryRepositoryImpl: GitHubRepositoryRepository {
+public final class GitHubRepositoryRepositoryImpl: GitHubRepositoryRepository {
 
-    func searchGitHubRepositories(by word: String, sort: GitHubRepositorySortKind) async throws -> [GitHubRepository] {
+    public func searchGitHubRepositories(by word: String, sort: GitHubRepositorySortKind) async throws -> [GitHubRepository] {
         return try await API.shared.call(SearchGitHubRepositoryRequest(query: word, sort: sort)).items
     }
+
+    public init() {}
 }

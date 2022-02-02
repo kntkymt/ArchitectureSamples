@@ -4,7 +4,7 @@
 //  Created by kntk on 2021/10/27.
 //
 
-protocol BannerShowable {
+public protocol BannerShowable {
 
     /// エラーメッセージをバナーで表示する
     /// バナーの色は赤色
@@ -23,7 +23,7 @@ protocol BannerShowable {
     func showWarnBanner(_ title: String, with message: String?)
 }
 
-extension BannerShowable {
+public extension BannerShowable {
     
     func showErrorBanner(_ title: String, with message: String? = nil) {
         MessageBanner.shared.error(title, with: message)

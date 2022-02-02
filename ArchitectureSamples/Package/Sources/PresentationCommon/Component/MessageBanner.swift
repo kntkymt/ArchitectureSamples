@@ -17,7 +17,7 @@ final class MessageBanner {
     // MARK: - Public
 
     func error(_ title: String, with message: String? = nil) {
-        let attribute = createBannerAttribute(name: "Error", color: UIColor(named: "error")!, feedBack: .error, duration: 5.0)
+        let attribute = createBannerAttribute(name: "Error", color: UIColor(named: "error", in: Bundle.module, compatibleWith: nil)!, feedBack: .error, duration: 5.0)
 
         var title = title
         if let message = message {
@@ -31,7 +31,7 @@ final class MessageBanner {
     }
 
     func warn(_ title: String, with message: String? = nil) {
-        let attribute = createBannerAttribute(name: "Warn", color: UIColor(named: "warn")!, feedBack: .warning, duration: 5.0)
+        let attribute = createBannerAttribute(name: "Warn", color: UIColor(named: "warn", in: Bundle.module, compatibleWith: nil)!, feedBack: .warning, duration: 5.0)
 
         var title = title
         if let message = message {

@@ -8,7 +8,7 @@ import Moya
 import Alamofire
 import Foundation
 
-struct APIProviderFactory {
+public enum APIProviderFactory {
 
     // MARK: - Property
 
@@ -20,10 +20,10 @@ struct APIProviderFactory {
         return configuration
     }()
 
-    // MARK: - Internal
+    // MARK: - Public
 
     /// サーバーへ向けたProvider生成する
-    static func createService() -> MoyaProvider<MultiTarget> {
+    public static func createService() -> MoyaProvider<MultiTarget> {
         return createProvider()
     }
 

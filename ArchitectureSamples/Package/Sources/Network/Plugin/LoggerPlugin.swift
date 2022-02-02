@@ -6,6 +6,8 @@
 
 import Moya
 
+import Loging
+
 struct LoggerPlugin: PluginType {
 
     func willSend(_ request: RequestType, target: TargetType) {

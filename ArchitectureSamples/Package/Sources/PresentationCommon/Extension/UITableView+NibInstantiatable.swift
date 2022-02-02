@@ -6,7 +6,7 @@
 
 import UIKit
 
-extension UITableView {
+public extension UITableView {
 
     func register<Cell: NibInstantiatable>(_ cellType: Cell.Type) {
         self.register(cellType.nib, forCellReuseIdentifier: cellType.identifier)

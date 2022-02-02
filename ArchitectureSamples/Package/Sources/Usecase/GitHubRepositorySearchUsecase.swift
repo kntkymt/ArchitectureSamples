@@ -7,7 +7,7 @@
 import Model
 import Repository
 
-protocol GitHubReposiotySearchUsecase {
+public protocol GitHubReposiotySearchUsecase {
 
     /// 指定された検索語でGitHubのリポジトリを検索する
     ///
@@ -22,7 +22,7 @@ protocol GitHubReposiotySearchUsecase {
     func getTrendingGitHubRepositories() async throws -> [GitHubRepository]
 }
 
-final class GitHubRepositorySearchUsecaseImpl: GitHubReposiotySearchUsecase {
+public final class GitHubRepositorySearchUsecaseImpl: GitHubReposiotySearchUsecase {
 
     // MARK: - Property
 
@@ -30,20 +30,20 @@ final class GitHubRepositorySearchUsecaseImpl: GitHubReposiotySearchUsecase {
 
     // MARK: - Initializer
 
-    init(gitHubRepositoryRepository: GitHubRepositoryRepository) {
+    public init(gitHubRepositoryRepository: GitHubRepositoryRepository) {
         self.gitHubRepositoryRepository = gitHubRepositoryRepository
     }
 
     // MARK: - Internal
 
-    func searchGitHubRepositories(by word: String) async throws -> [GitHubRepository] {
+    public func searchGitHubRepositories(by word: String) async throws -> [GitHubRepository] {
         return try await gitHubRepositoryRepository.searchGitHubRepositories(by: word, sort: .bestMatch)
     }
 
     // FIXME: トレンドAPI
     // トレンド的な良さげなレポジトリを返してくれるAPIがほしかったが、
     // なかったので現状はSwiftで検索したもので代用中
-    func getTrendingGitHubRepositories() async throws -> [GitHubRepository] {
+    public func getTrendingGitHubRepositories() async throws -> [GitHubRepository] {
         return try await gitHubRepositoryRepository.searchGitHubRepositories(by: "Swift", sort: .stars)
     }
 }

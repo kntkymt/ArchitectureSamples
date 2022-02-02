@@ -6,23 +6,28 @@
 
 import UIKit
 
-protocol Storyboardable {
+public protocol Storyboardable {
 
     associatedtype Instance
 
+    static var bundle: Bundle? { get }
     static var storyboardName: String { get }
     static var storyboard: UIStoryboard { get }
     static func initViewController() -> Instance
 }
 
-extension Storyboardable where Self: UIViewController {
+public extension Storyboardable where Self: UIViewController {
+
+    static var bundle: Bundle? {
+        return Bundle.module
+    }
 
     static var storyboardName: String {
         return String(describing: self)
     }
 
     static var storyboard: UIStoryboard {
-        return UIStoryboard(name: storyboardName, bundle: nil)
+        return UIStoryboard(name: storyboardName, bundle: bundle)
     }
 
     static func initViewController() -> Self {

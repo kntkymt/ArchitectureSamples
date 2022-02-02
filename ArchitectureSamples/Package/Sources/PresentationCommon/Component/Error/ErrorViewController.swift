@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class ErrorViewController: UIViewController, Storyboardable {
+public final class ErrorViewController: UIViewController, Storyboardable {
 
     // MARK: - Outlet
 
@@ -26,7 +26,7 @@ final class ErrorViewController: UIViewController, Storyboardable {
 
     // MARK: - Static
 
-    static func build(refreshTitle: String, hideRefreshButton: Bool) -> Self {
+    public static func build(refreshTitle: String, hideRefreshButton: Bool) -> Self {
         let viewController = initViewController()
         viewController.refreshTitle = refreshTitle
         viewController.hideRefreshButton = hideRefreshButton
@@ -36,14 +36,14 @@ final class ErrorViewController: UIViewController, Storyboardable {
 
     // MARK: - Lifecycle
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         refreshButton.isHidden = hideRefreshButton
     }
 
     // MARK: - Public
 
-    func setRefreshButtonHandler(handler: @escaping () -> Void) {
+    public func setRefreshButtonHandler(handler: @escaping () -> Void) {
         self.refreshButtonHandler = handler
     }
 

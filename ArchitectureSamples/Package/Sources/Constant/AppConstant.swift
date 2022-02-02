@@ -8,7 +8,7 @@
 public enum AppConstant {
 
     public enum API {
-        static let domain = "api.github.com"
-        static let baseURL = "https://\(domain)"
+        public static let domain = "api.github.com"
+        public static let baseURL = "https://\(domain)"
     }
 }

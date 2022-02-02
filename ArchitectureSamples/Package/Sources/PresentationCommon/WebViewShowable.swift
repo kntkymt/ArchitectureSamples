@@ -6,7 +6,7 @@
 
 import SafariServices
 
-protocol WebViewShowable {
+public protocol WebViewShowable {
 
     /// SafariアプリでURLを開く
     ///
@@ -21,7 +21,7 @@ protocol WebViewShowable {
     func presentSafariViewController(url: URL)
 }
 
-extension WebViewShowable where Self: UIViewController {
+public extension WebViewShowable where Self: UIViewController {
 
     func openSafariApp(url: URL) {
         guard UIApplication.shared.canOpenURL(url) else { return }

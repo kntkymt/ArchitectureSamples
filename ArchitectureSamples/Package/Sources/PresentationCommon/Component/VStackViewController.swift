@@ -7,12 +7,12 @@
 
 import UIKit
 
-public class VStackViewController: UIViewController {
+open class VStackViewController: UIViewController {
 
     // MARK: - Property
     
-    let scrollView: UIScrollView = .init()
-    let stackView: UIStackView = {
+    public let scrollView: UIScrollView = .init()
+    public let stackView: UIStackView = {
         let stackView: UIStackView = .init()
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -21,13 +21,13 @@ public class VStackViewController: UIViewController {
 
         return stackView
     }()
-    lazy var bottomConstraint = view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+    public lazy var bottomConstraint = view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
 
-    var components: [UIViewController]!
+    public var components: [UIViewController]!
 
     // MARK: - Override
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
 
         components.forEach { [weak self] in self?.addChild($0) }

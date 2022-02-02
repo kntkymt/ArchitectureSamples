@@ -32,13 +32,13 @@ public enum APIError: Error {
 
         /// NSErrorに変換した時のdomainを定義
         // swiftlint:disable:next identifier_name
-        var _domain: String {
+        public var _domain: String {
             return "HTTPStatusCodeError"
         }
 
         /// NSErrorに変換した時のcodeを定義
         // swiftlint:disable:next identifier_name
-        var _code: Int {
+        public var _code: Int {
             switch self {
             case .badrequest:
                 return 400

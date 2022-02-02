@@ -7,11 +7,13 @@
 import Moya
 import Foundation
 
+import AppError
+
 public final class API {
 
     // MARK: - Static
 
-    static private(set) var shared: API!
+    public static private(set) var shared: API!
 
     // MARK: - Property
 
@@ -19,11 +21,11 @@ public final class API {
 
     // MARK: - Public
 
-    static func setup(provider: MoyaProvider<MultiTarget>) {
+    public static func setup(provider: MoyaProvider<MultiTarget>) {
         self.shared = API(provider: provider)
     }
 
-    func call<R: APITargetType>(_ request: R) async throws -> R.Response {
+    public func call<R: APITargetType>(_ request: R) async throws -> R.Response {
         return try await withCheckedThrowingContinuation { continuation in
             let target = MultiTarget(request)
             self.provider.request(target) { response in

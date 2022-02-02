@@ -7,7 +7,9 @@
 import Moya
 import Foundation
 
-enum GitHubRepositorySortKind {
+import Model
+
+public enum GitHubRepositorySortKind {
     case stars
     case forks
     case helpWantedIssues
@@ -25,29 +27,34 @@ enum GitHubRepositorySortKind {
     }
 }
 
-struct SearchGitHubRepositoryResponse: Codable {
-    var items: [GitHubRepository]
+public struct SearchGitHubRepositoryResponse: Codable {
+    public var items: [GitHubRepository]
 }
 
-struct SearchGitHubRepositoryRequest {
+public struct SearchGitHubRepositoryRequest {
 
-    var query: String
-    var sort: GitHubRepositorySortKind
+    public var query: String
+    public var sort: GitHubRepositorySortKind
+
+    public init(query: String, sort: GitHubRepositorySortKind) {
+        self.query = query
+        self.sort = sort
+    }
 }
 
 extension SearchGitHubRepositoryRequest: APITargetType {
 
-    typealias Response = SearchGitHubRepositoryResponse
+    public typealias Response = SearchGitHubRepositoryResponse
 
-    var path: String {
+    public var path: String {
         return "/search/repositories"
     }
 
-    var method: Moya.Method {
+    public var method: Moya.Method {
         return .get
     }
 
-    var task: Task {
+    public var task: Task {
         var parameters: Parameters = [
             "q": query
         ]
@@ -59,7 +66,7 @@ extension SearchGitHubRepositoryRequest: APITargetType {
         return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
     }
 
-    var sampleData: Data {
+    public var sampleData: Data {
         let path = Bundle.main.path(forResource: "SearchGitHubRepositoryRequestStub", ofType: "json")!
         return FileHandle(forReadingAtPath: path)!.readDataToEndOfFile()
     }

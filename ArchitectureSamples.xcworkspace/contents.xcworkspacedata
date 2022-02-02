@@ -4,4 +4,7 @@
    <FileRef
       location = "group:ArchitectureSamples/Package">
    </FileRef>
+   <FileRef
+      location = "group:ArchitectureSamples/Fat/Fat.xcodeproj">
+   </FileRef>
 </Workspace>

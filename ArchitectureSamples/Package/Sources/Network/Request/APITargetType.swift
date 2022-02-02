@@ -7,15 +7,17 @@
 import Moya
 import Foundation
 
+import Constant
+
 typealias Parameters = [String: Any]
 
-protocol APITargetType: TargetType {
+public protocol APITargetType: TargetType {
     associatedtype Response: Codable
 
     func decode(from result: Moya.Response) throws -> Response
 }
 
-extension APITargetType {
+public extension APITargetType {
     
     var baseURL: URL {
         return URL(string: AppConstant.API.baseURL)!

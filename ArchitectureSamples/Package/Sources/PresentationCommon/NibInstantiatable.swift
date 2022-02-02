@@ -6,18 +6,23 @@
 
 import UIKit
 
-protocol NibInstantiatable {
+public protocol NibInstantiatable {
 
     associatedtype Dependency
 
     func inject(_ dependency: Dependency)
 
+    static var bundle: Bundle? { get }
     static var identifier: String { get }
     static var nibName: String { get }
     static var nib: UINib { get }
 }
 
-extension NibInstantiatable {
+public extension NibInstantiatable {
+
+    static var bundle: Bundle? {
+        return Bundle.module
+    }
 
     static var nibName: String {
         return String(describing: self)
@@ -28,6 +33,6 @@ extension NibInstantiatable {
     }
 
     static var nib: UINib {
-        return UINib(nibName: nibName, bundle: nil)
+        return UINib(nibName: nibName, bundle: bundle)
     }
 }

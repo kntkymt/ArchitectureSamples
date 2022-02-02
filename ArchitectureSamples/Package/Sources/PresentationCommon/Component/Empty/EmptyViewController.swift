@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class EmptyViewController: UIViewController, Storyboardable {
+public final class EmptyViewController: UIViewController, Storyboardable {
 
     // MARK: - Outlet
 
@@ -22,7 +22,7 @@ final class EmptyViewController: UIViewController, Storyboardable {
 
     // MARK: - Build
 
-    static func build(emptyTitle: String) -> Self {
+    public static func build(emptyTitle: String) -> Self {
         let viewControlelr = initViewController()
         viewControlelr.emptyTitle = emptyTitle
         return viewControlelr

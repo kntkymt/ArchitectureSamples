@@ -7,13 +7,13 @@
 
 import UIKit
 
-typealias Constraint = (UIView, UIView) -> NSLayoutConstraint
+public typealias Constraint = (UIView, UIView) -> NSLayoutConstraint
 
-func equal<L, Axis>(_ to: KeyPath<UIView, L>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
+public func equal<L, Axis>(_ to: KeyPath<UIView, L>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
     return equal(to, to, constant: constant, priority: priority)
 }
 
-func equal<L, Axis>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
+public func equal<L, Axis>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
     return { view1, view2 in
         let constraint = view1[keyPath: from].constraint(equalTo: view2[keyPath: to], constant: constant)
         if let priority = priority {
@@ -23,7 +23,7 @@ func equal<L, Axis>(_ from: KeyPath<UIView, L>, _ to: KeyPath<UIView, L>, consta
     }
 }
 
-func equal<L, Axis>(_ keyPath: KeyPath<UIView, L>, to other: NSLayoutAnchor<Axis>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
+public func equal<L, Axis>(_ keyPath: KeyPath<UIView, L>, to other: NSLayoutAnchor<Axis>, constant: CGFloat = 0, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutAnchor<Axis> {
     return { view, _ in
         let constraint = view[keyPath: keyPath].constraint(equalTo: other, constant: constant)
         if let priority = priority {
@@ -33,7 +33,7 @@ func equal<L, Axis>(_ keyPath: KeyPath<UIView, L>, to other: NSLayoutAnchor<Axis
     }
 }
 
-func equal<L>(_ keyPath: KeyPath<UIView, L>, constant: CGFloat, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutDimension {
+public func equal<L>(_ keyPath: KeyPath<UIView, L>, constant: CGFloat, priority: UILayoutPriority? = nil) -> Constraint where L: NSLayoutDimension {
     return { view1, _ in
         let constraint = view1[keyPath: keyPath].constraint(equalToConstant: constant)
         if let priority = priority {
@@ -43,7 +43,7 @@ func equal<L>(_ keyPath: KeyPath<UIView, L>, constant: CGFloat, priority: UILayo
     }
 }
 
-extension Array where Element == Constraint {
+public extension Array where Element == Constraint {
     static func allEdges(margin: CGFloat = 0, priority: UILayoutPriority? = nil) -> [Constraint] {
         return horizontalEdges(margin: margin, priority: priority) + verticalEdges(margin: margin, priority: priority)
     }
@@ -65,7 +65,7 @@ extension Array where Element == Constraint {
     }
 }
 
-extension UIView {
+public extension UIView {
     func addSubview(_ other: UIView, constraints: [Constraint]) {
         other.translatesAutoresizingMaskIntoConstraints = false
         addSubview(other)
@@ -92,7 +92,7 @@ extension UIView {
     }
 }
 
-extension UIStackView {
+public extension UIStackView {
     func addArrangedSubview(_ other: UIView, constraints: [Constraint]) {
         other.translatesAutoresizingMaskIntoConstraints = false
         addArrangedSubview(other)

@@ -4,12 +4,11 @@
 //  Created by kntk on 2021/10/24.
 //
 
-
 import Foundation
 import UIKit
 import Nuke
 
-extension UIImageView {
+public extension UIImageView {
 
     func load(_ url: URL?, placeholder: UIImage? = nil, contentMode: UIImageView.ContentMode = .scaleAspectFit) {
         guard let url = url else { return }
