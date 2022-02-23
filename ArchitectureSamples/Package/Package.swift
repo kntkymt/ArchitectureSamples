@@ -9,7 +9,15 @@ let package = Package(
     products: [
         .library(
             name: "ProjectBase",
-            targets: ["AppContainer", "Loging", "PresentationCommon", "Usecase", "Model"]
+            targets: ["Loging", "PresentationCommon", "Model"]
+        ),
+        .library(
+            name: "Usecase",
+            targets: ["AppContainer", "Usecase"]
+        ),
+        .library(
+            name: "Repository",
+            targets: ["AppRepositoryContainer", "Repository"]
         )
     ],
     dependencies: [
@@ -25,6 +33,12 @@ let package = Package(
             name: "AppContainer",
             dependencies: [
                 "Usecase"
+            ]
+        ),
+        .target(
+            name: "AppRepositoryContainer",
+            dependencies: [
+                "Repository"
             ]
         ),
         .target(

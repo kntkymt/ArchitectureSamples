@@ -31,6 +31,7 @@
 		E271881C27C6637500B1F444 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E271880927C6637500B1F444 /* MainViewController.swift */; };
 		E271881D27C6637500B1F444 /* MainViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E271880A27C6637500B1F444 /* MainViewController.storyboard */; };
 		E271881F27C6642600B1F444 /* Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E271881E27C6642600B1F444 /* Presentation.swift */; };
+		E271888827C6913100B1F444 /* Usecase in Frameworks */ = {isa = PBXBuildFile; productRef = E271888727C6913100B1F444 /* Usecase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E271888827C6913100B1F444 /* Usecase in Frameworks */,
 				E27187F127C65FDA00B1F444 /* ProjectBase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -210,6 +212,7 @@
 			name = MVP;
 			packageProductDependencies = (
 				E27187F027C65FDA00B1F444 /* ProjectBase */,
+				E271888727C6913100B1F444 /* Usecase */,
 			);
 			productName = MVP;
 			productReference = E27187D727C65E3200B1F444 /* MVP.app */;
@@ -512,6 +515,10 @@
 		E27187F027C65FDA00B1F444 /* ProjectBase */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ProjectBase;
+		};
+		E271888727C6913100B1F444 /* Usecase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Usecase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

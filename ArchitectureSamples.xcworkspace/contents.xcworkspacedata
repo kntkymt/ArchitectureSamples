@@ -10,4 +10,7 @@
    <FileRef
       location = "group:ArchitectureSamples/MVP/MVP.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ArchitectureSamples/VIPER/VIPER.xcodeproj">
+   </FileRef>
 </Workspace>

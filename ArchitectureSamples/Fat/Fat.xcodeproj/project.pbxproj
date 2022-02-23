@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E271888A27C6913800B1F444 /* Usecase in Frameworks */ = {isa = PBXBuildFile; productRef = E271888927C6913800B1F444 /* Usecase */; };
 		E2C4B0FF27AB0BEA00281484 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4B0FE27AB0BEA00281484 /* AppDelegate.swift */; };
 		E2C4B10127AB0BEA00281484 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4B10027AB0BEA00281484 /* SceneDelegate.swift */; };
 		E2C4B10327AB0BEA00281484 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C4B10227AB0BEA00281484 /* MainViewController.swift */; };
@@ -52,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E271888A27C6913800B1F444 /* Usecase in Frameworks */,
 				E2C4B11427AB0E7800281484 /* ProjectBase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +191,7 @@
 			name = Fat;
 			packageProductDependencies = (
 				E2C4B11327AB0E7800281484 /* ProjectBase */,
+				E271888927C6913800B1F444 /* Usecase */,
 			);
 			productName = Fat;
 			productReference = E2C4B0FB27AB0BEA00281484 /* Fat.app */;
@@ -481,6 +484,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		E271888927C6913800B1F444 /* Usecase */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Usecase;
+		};
 		E2C4B11327AB0E7800281484 /* ProjectBase */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ProjectBase;
