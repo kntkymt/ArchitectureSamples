@@ -7,4 +7,7 @@
    <FileRef
       location = "group:ArchitectureSamples/Fat/Fat.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ArchitectureSamples/MVP/MVP.xcodeproj">
+   </FileRef>
 </Workspace>

@@ -10,7 +10,7 @@ public typealias Logger = SwiftyBeaver
 
 public extension Logger {
 
-    public static func setup() {
+    static func setup() {
         let destination = ConsoleDestination()
         SwiftyBeaver.addDestination(destination)
     }
