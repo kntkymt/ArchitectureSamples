@@ -64,52 +64,61 @@ final class RepositorySearchViewController: UIViewController, Storyboardable, Ba
         super.viewDidLoad()
 
         viewModel.searchText
-            .bind(to: searchController.searchBar.searchTextField.rx.text)
+            .asDriver()
+            .drive(searchController.searchBar.searchTextField.rx.text)
             .disposed(by: disposeBag)
 
         searchController.searchBar.searchTextField.rx.text
             .orEmpty
-            .bind(to: viewModel.searchText)
+            .asDriver()
+            .drive(viewModel.searchText)
             .disposed(by: disposeBag)
 
-        let isLoading = viewModel.isLoading.share()
-        isLoading
-            .bind(to: indicatorView.rx.isAnimating)
+        viewModel.isLoading
+            .asDriver()
+            .drive(indicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
-        isLoading
+        viewModel.isLoading
+            .asDriver()
             .map { !$0 }
-            .bind(to: tableView.rx.isUserInteractionEnabled)
+            .drive(tableView.rx.isUserInteractionEnabled)
             .disposed(by: disposeBag)
 
         viewModel.error
-            .flatMap { $0.flatMap(Observable.just) ?? Observable.empty() }
-            .subscribe(onNext: { [weak self] title, message in
+            .asDriver()
+            .flatMap { $0.flatMap(Driver.just) ?? Driver.empty() }
+            .drive(onNext: { [weak self] title, message in
                 self?.showErrorBanner(title, with: message)
             })
             .disposed(by: disposeBag)
 
         viewModel.gitHubRepositories
-            .bind(to: tableView.rx.items) { tableView, row, element in
+            .asDriver()
+            .drive(tableView.rx.items) { tableView, row, element in
                 tableView.dequeue(RepositoryTableViewCell.self, for: IndexPath(row: row, section: 0), with: element)
             }
             .disposed(by: disposeBag)
 
+        // 以下ロジックが混ざっているのでよう修正
         // viewModel側にinputを作ってそこにbindし、viewmodel側でsearchを呼ぶべき？
         searchController.searchBar.rx.searchButtonClicked
-            .subscribe(onNext: { [weak self] in
+            .asDriver()
+            .drive(onNext: { [weak self] in
                 self?.viewModel.searchGitHubRepositories()
             })
             .disposed(by: disposeBag)
 
         searchController.searchBar.rx.cancelButtonClicked
-            .subscribe(onNext: { [weak self] in
+            .asDriver()
+            .drive(onNext: { [weak self] in
                 self?.viewModel.setInitialGitHubRepositories()
             })
             .disposed(by: disposeBag)
 
         tableView.rx.itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
+            .asDriver()
+            .drive(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 let gitHubRepository = self.viewModel.gitHubRepositories.value[indexPath.row]
                 let detailHeadingViewController = RepositoryDetailHeadingViewController.build(viewModel: RepositoryDetailHeadingViewModelImpl(gitHubRepository: gitHubRepository))
@@ -124,13 +133,13 @@ final class RepositorySearchViewController: UIViewController, Storyboardable, Ba
             .disposed(by: disposeBag)
 
         let event = Observable.combineLatest(viewModel.gitHubRepositories, viewModel.error)
-            .share()
+            .asDriver(onErrorJustReturn: ([], nil))
 
         event
             .map { repositories, error in
                 repositories.isEmpty || error != nil ? self.tableView.bounds.height : CGFloat.leastNormalMagnitude
             }
-            .bind(to: tableView.rx.sectionHeaderHeight)
+            .drive(tableView.rx.sectionHeaderHeight)
             .disposed(by: disposeBag)
 
         event
@@ -143,7 +152,7 @@ final class RepositorySearchViewController: UIViewController, Storyboardable, Ba
                     return nil
                 }
             }
-            .bind(to: tableView.rx.tableHeaderView)
+            .drive(tableView.rx.tableHeaderView)
             .disposed(by: disposeBag)
 
         tableView.addSubview(indicatorView, constraints: .center())

@@ -63,7 +63,8 @@ final class RepositoryDetailCountViewController: UITableViewController, Storyboa
         view.heightAnchor.constraint(equalToConstant: 240).isActive = true
 
         viewModel.gitHubRepository
-            .subscribe(onNext: { [weak self] gitHubRepository in
+            .asDriver()
+            .drive(onNext: { [weak self] gitHubRepository in
                 self?.showDetail(gitHubRepository: gitHubRepository)
             })
             .disposed(by: disposeBag)

@@ -39,7 +39,8 @@ final class RepositoryDetailHeadingViewController: UIViewController, Storyboarda
         super.viewDidLoad()
 
         viewModel.gitHubRepository
-            .subscribe(onNext: { [weak self] gitHubRepository in
+            .asDriver()
+            .drive(onNext: { [weak self] gitHubRepository in
                 self?.showDetail(gitHubRepository: gitHubRepository)
             })
             .disposed(by: disposeBag)
