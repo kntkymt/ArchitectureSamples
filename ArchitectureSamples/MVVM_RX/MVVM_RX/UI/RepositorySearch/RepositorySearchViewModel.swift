@@ -12,18 +12,34 @@ import RxRelay
 import AppError
 import Loging
 import Model
+import RxCocoa
+
+enum HeaderViewType {
+    case error
+    case empty
+}
+
+struct RepositorySearchViewModelInput {
+
+    var searchText: Driver<String>
+    var searchButtonClicked: Signal<Void>
+    var cancelButtonClicked: Signal<Void>
+    var itemSelected: Signal<IndexPath>
+    var errorViewRefreshButtonDitTap: Signal<Void>
+}
 
 protocol RepositorySearchViewModel {
+
+    func bind(input: RepositorySearchViewModelInput)
 
     var isLoading: BehaviorRelay<Bool> { get }
     var searchText: BehaviorRelay<String> { get }
     var initialGitHubRepositories: BehaviorRelay<[GitHubRepository]?> { get }
     var gitHubRepositories: BehaviorRelay<[GitHubRepository]> { get }
     var error: BehaviorRelay<(title: String, message: String)?> { get }
-    
-    func searchGitHubRepositories()
-    func setInitialGitHubRepositories()
 
+    var headerViewType: Driver<HeaderViewType?> { get }
+    var showDetalView: Signal<GitHubRepository> { get }
 }
 
 final class RepositorySearchViewModelImpl: RepositorySearchViewModel {
@@ -39,12 +55,72 @@ final class RepositorySearchViewModelImpl: RepositorySearchViewModel {
     var gitHubRepositories: BehaviorRelay<[GitHubRepository]> = .init(value: [])
     var error: BehaviorRelay<(title: String, message: String)?> = .init(value: nil)
 
+    var headerViewType: Driver<HeaderViewType?> = .empty()
+    var showDetalView: Signal<GitHubRepository> = .empty()
+
     private var disposeBag = DisposeBag()
 
     // MARK: - Initializer
 
     init(gitHubRepositorySearchUsecase: GitHubRepositorySearchUsecase) {
         self.gitHubRepositorySearchUsecase = gitHubRepositorySearchUsecase
+    }
+
+    func bind(input: RepositorySearchViewModelInput) {
+        headerViewType = Driver.combineLatest(gitHubRepositories.asDriver(), error.asDriver())
+            .map { repositories, error -> HeaderViewType? in
+                if error != nil {
+                    return .error
+                } else if repositories.isEmpty {
+                    return .empty
+                } else {
+                    return nil
+                }
+            }
+
+        let indexPathAndGitHubRepositories = Driver.combineLatest(input.itemSelected.asDriver(onErrorDriveWith: .empty()), gitHubRepositories.asDriver()) {
+            (indexPath: $0, gitHubRepositories: $1)
+        }
+
+        // a.hoge(b) Observable<A> -> Observable<(A, B)>みたいなオペレーターが欲しいけどない？
+        showDetalView = input.itemSelected
+            .withLatestFrom(indexPathAndGitHubRepositories)
+            .map { (indexPath, gitHubRepositories) in
+                gitHubRepositories[indexPath.row]
+            }
+            .asSignal()
+
+        input.searchText
+            .drive(searchText)
+            .disposed(by: disposeBag)
+
+        input.searchButtonClicked
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                self?.searchGitHubRepositories()
+            })
+            .disposed(by: disposeBag)
+
+        input.cancelButtonClicked
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] in
+                self?.setInitialGitHubRepositories()
+            })
+            .disposed(by: disposeBag)
+
+        input.errorViewRefreshButtonDitTap
+            .asDriver(onErrorDriveWith: .empty())
+            .withLatestFrom(initialGitHubRepositories.asDriver())
+            .drive(onNext: { [weak self] initialGitHubRepositories in
+                if initialGitHubRepositories == nil {
+                    self?.setInitialGitHubRepositories()
+                } else {
+                    self?.searchGitHubRepositories()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        setInitialGitHubRepositories()
     }
 
     // MARK: - Public
