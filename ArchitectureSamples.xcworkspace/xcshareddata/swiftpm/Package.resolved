@@ -29,12 +29,21 @@
         }
       },
       {
+        "package": "ReactiveCocoa",
+        "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveCocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "579364393ad587352bcce133b7b3f73392cb585b",
+          "version": "11.2.2"
+        }
+      },
+      {
         "package": "ReactiveSwift",
         "repositoryURL": "https://github.com/ReactiveCocoa/ReactiveSwift.git",
         "state": {
           "branch": null,
-          "revision": "c43bae3dac73fdd3cb906bd5a1914686ca71ed3c",
-          "version": "6.7.0"
+          "revision": "2c06e9421011a1a4cf57ea4bbcd8936843a6c9da",
+          "version": "6.6.1"
         }
       },
       {

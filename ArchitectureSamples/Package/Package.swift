@@ -22,6 +22,10 @@ let package = Package(
         .library(
             name: "RxDependencies",
             targets: ["RxDependencies"]
+        ),
+        .library(
+            name: "ReactiveDependencies",
+            targets: ["ReactiveDependencies"]
         )
     ],
     dependencies: [
@@ -29,7 +33,9 @@ let package = Package(
         .package(name: "Nuke", url: "https://github.com/kean/Nuke.git", from: "10.7.1"),
         .package(name: "SwiftyBeaver", url: "https://github.com/SwiftyBeaver/SwiftyBeaver.git", from: "1.9.5"),
         .package(name: "SwiftEntryKit", url: "https://github.com/huri000/SwiftEntryKit.git", from: "2.0.0"),
-        .package(name: "RxSwift", url: "https://github.com/ReactiveX/RxSwift.git", .exact("6.5.0"))
+        .package(name: "RxSwift", url: "https://github.com/ReactiveX/RxSwift.git", .exact("6.5.0")),
+        .package(name: "ReactiveSwift", url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", .exact("6.6.1")),
+        .package(name: "ReactiveCocoa", url: "https://github.com/ReactiveCocoa/ReactiveCocoa.git", .exact("11.2.2"))
     ],
     targets: [
         .target(name: "AppError"),
@@ -92,6 +98,14 @@ let package = Package(
                 .product(name: "RxCocoa", package: "RxSwift", condition: .when(platforms: [.iOS])),
                 .product(name: "RxRelay", package: "RxSwift", condition: .when(platforms: [.iOS]))
             ]
-        )
+        ),
+        .target(
+            name: "ReactiveDependencies",
+            dependencies: [
+                .product(name: "ReactiveMoya", package: "Moya", condition: .when(platforms: [.iOS])),
+                .product(name: "ReactiveSwift", package: "ReactiveSwift", condition: .when(platforms: [.iOS])),
+                .product(name: "ReactiveCocoa", package: "ReactiveCocoa", condition: .when(platforms: [.iOS]))
+            ]
+        ),
     ]
 )
