@@ -38,6 +38,7 @@ final class RepositoryDetailHeadingViewController: UIViewController, Storyboarda
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // producerじゃないとreplayされない？
         disposeBag.add(viewModel.gitHubRepository
             .producer
             .startWithValues { [weak self] gitHubRepository in
