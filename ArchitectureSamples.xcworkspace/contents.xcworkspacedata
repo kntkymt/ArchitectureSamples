@@ -19,4 +19,7 @@
    <FileRef
       location = "group:ArchitectureSamples/MVVM_Reactive/MVVM_Reactive.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ArchitectureSamples/Flux_Rx/Flux_Rx.xcodeproj">
+   </FileRef>
 </Workspace>
