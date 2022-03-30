@@ -22,4 +22,7 @@
    <FileRef
       location = "group:ArchitectureSamples/Flux_Rx/Flux_Rx.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:ArchitectureSamples/Redux_Rx/Redux_Rx.xcodeproj">
+   </FileRef>
 </Workspace>

@@ -24,6 +24,10 @@ let package = Package(
             targets: ["RxDependencies"]
         ),
         .library(
+            name: "ReduxDependencies",
+            targets: ["RxDependencies", "ReduxDependencies"]
+        ),
+        .library(
             name: "ReactiveDependencies",
             targets: ["ReactiveDependencies"]
         )
@@ -35,7 +39,8 @@ let package = Package(
         .package(name: "SwiftEntryKit", url: "https://github.com/huri000/SwiftEntryKit.git", from: "2.0.0"),
         .package(name: "RxSwift", url: "https://github.com/ReactiveX/RxSwift.git", .exact("6.5.0")),
         .package(name: "ReactiveSwift", url: "https://github.com/ReactiveCocoa/ReactiveSwift.git", .exact("6.6.1")),
-        .package(name: "ReactiveCocoa", url: "https://github.com/ReactiveCocoa/ReactiveCocoa.git", .exact("11.2.2"))
+        .package(name: "ReactiveCocoa", url: "https://github.com/ReactiveCocoa/ReactiveCocoa.git", .exact("11.2.2")),
+        .package(url: "https://github.com/ReSwift/ReSwift.git", .exact("6.1.0"))
     ],
     targets: [
         .target(name: "AppError"),
@@ -107,5 +112,11 @@ let package = Package(
                 .product(name: "ReactiveCocoa", package: "ReactiveCocoa", condition: .when(platforms: [.iOS]))
             ]
         ),
+        .target(
+            name: "ReduxDependencies",
+            dependencies: [
+                .product(name: "ReSwift", package: "ReSwift", condition: .when(platforms: [.iOS]))
+            ]
+        )
     ]
 )
